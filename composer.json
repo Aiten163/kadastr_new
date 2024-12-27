@@ -8,6 +8,8 @@
     "require": {
         "php": "^8.2",
         "laravel/framework": "^11.31",
+        "orchid/icons": "^2.0",
+        "orchid/platform": "^14.39",
         "laravel/tinker": "^2.9"
     },
     "require-dev": {
