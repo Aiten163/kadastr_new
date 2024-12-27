@@ -1,0 +1,14 @@
+# Используем официальный образ Nginx
+FROM nginx:latest
+
+# Устанавливаем Certbot и необходимые пакеты для генерации SSL-сертификатов
+RUN apt-get update && apt-get install -y \
+    certbot \
+    python3-certbot-nginx \
+    && apt-get clean
+
+# Копируем конфигурацию для продакшн (с SSL)
+COPY ./conf.d/ /etc/nginx/conf.d/prod
+
+# Рабочая директория
+WORKDIR /var/www

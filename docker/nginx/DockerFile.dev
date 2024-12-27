@@ -1,0 +1,8 @@
+# Используем официальный образ Nginx
+FROM nginx:latest
+
+# Копируем конфигурацию для разработки (например, конфиг с HTTP, без SSL)
+COPY ./conf.d/ /etc/nginx/conf.d/dev
+
+# Рабочая директория
+WORKDIR /var/www

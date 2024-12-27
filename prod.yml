@@ -1,0 +1,100 @@
+version: '3.8'
+
+services:
+  # Nginx для продакшн
+  nginx:
+    restart: always
+    build:
+      context: ./docker/nginx
+      dockerfile: DockerFile.prod
+    volumes:
+      - ./:/var/www
+      - ./certs:/etc/letsencrypt
+    environment:
+      - "DB_PORT=3306"
+      - "DB_HOST=mysql"
+      - "XDG_CONFIG_HOME=/app"
+    ports:
+      - "80:80"   # Стандартный HTTP порт
+      - "443:443" # HTTPS порт
+    links:
+      - php-fpm
+      - node
+    command: /bin/sh -c "if [ ! -f /etc/letsencrypt/live/yourdomain/fullchain.pem ]; then certbot certonly --standalone --non-interactive --agree-tos --email your-email@example.com -d yourdomain; fi && nginx -g 'daemon off;'"
+
+  # PHP-FPM для продакшн
+  php-fpm:
+    restart: always
+    build:
+      context: ./docker/php-fpm
+      dockerfile: Dockerfile
+    volumes:
+      - ./:/var/www
+    environment:
+      - "DB_PORT=3306"
+      - "DB_HOST=mysql"
+      - "REDIS_PORT=6379"
+      - "REDIS_HOST=redis"
+    links:
+      - mysql
+      - node
+
+  # PHP-CLI для продакшн
+  php-cli:
+    restart: always
+    build:
+      context: ./
+      dockerfile: docker/php-cli.docker
+    volumes:
+      - ./:/var/www
+    environment:
+      - "DB_PORT=3306"
+      - "DB_HOST=mysql"
+      - "COMPOSER_MEMORY_LIMIT=-1"
+    links:
+      - mysql
+    tty: true
+
+  # MySQL для продакшн
+  mysql:
+    restart: always
+    image: mysql:8.0
+    volumes:
+      - prod_database:/var/lib/mysql
+      - ./docker/my.cnf:/etc/mysql/conf.d/custom.cnf:ro
+    environment:
+      - "MYSQL_ROOT_PASSWORD=prodpassword"  # Надежный пароль для продакшн
+      - "MYSQL_USER=user"
+      - "MYSQL_PASSWORD=prodpassword"
+      - "MYSQL_DATABASE=prod_db"  # Имя базы для продакшн
+      - "TZ=Europe/Moscow"
+    ports:
+      - "3306:3306"  # Порт для доступа к базе данных
+
+  # PhpMyAdmin для продакшн (не рекомендуется для продакшн, если не нужна)
+  phpmyadmin:
+    restart: always
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin
+    environment:
+      - PMA_HOST=mysql
+      - PMA_USER=user
+      - PMA_PASSWORD=prodpassword
+      - UPLOAD_LIMIT=64M
+    ports:
+      - "8081:80"  # Порт для доступа к PhpMyAdmin
+
+  # Node.js для продакшн
+  node:
+    image: node:18-alpine
+    environment:
+      - "NODE_ENV=production"  # Режим продакшн
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./:/var/www
+    working_dir: /var/www
+    tty: false
+
+volumes:
+  prod_database:  # Тома для данных базы данных
