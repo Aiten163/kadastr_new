@@ -1,233 +1,29 @@
-html {
-    scroll-behavior: smooth;
-}
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-button {
-    background-color: rgb(237, 122, 0);
-    border-radius: 0.39em;
-    font-size: 18px;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    margin: 4px 2px;
-    cursor: pointer;
-}
-
 body {
-    word-wrap: break-word;
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Montserrat', sans-serif;
+    line-height: 1.6;
 }
 
-a {
-    display: inline;
-    color: black;
-    text-decoration: none;
-    margin: 3px;
-}
-
-/* header */
-.header {
-    display: flex;
-    justify-content: space-between; /* Разделяет логотип и меню */
-    align-items: center; /* Центрирует элементы вертикально */
-    height: 150px;
-    padding: 0 20px;
-    background-color: #f8f8f8; /* Цвет фона */
-}
-
-.logo-container {
-    height: 100%;
-    display: flex;
-    overflow:hidden;
-    align-items: center; /* Центрирует логотип вертикально */
-    padding: 10px 0;
-}
-/* Логотип */
-.logo {
-    background-repeat: no-repeat;
-    background-size: contain;
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-}
-.jak {
-    font-size: 1.5em;
-    color: black;
-    display: flex;
-    gap: 15px; /* Добавляет расстояние между ссылками */
-}
-
-/* nach */
-.nach {
-    box-shadow: 20px -5px 50px 10px lightgray;
-    background: url("../img/back.png");
+.hero {
+    background-image: url('img/back.png');
     background-size: cover;
-    margin-top: 5%;
-    height: 683px;
-    font-size: 30px;
-}
-
-.nach_text {
-    text-align: center;
-    padding: 15%;
-    color: #222;
-}
-
-.zakaz_1 {
-    width: 200px;
-    height: 60px;
-    font-size: 20px;
-}
-
-/* о нас */
-#section1 {
-    display: flex;
-    align-items: center;
-    padding: 20px;
-    font-size: 200%;
-}
-
-.secnion1_container {
-    width: 60%;
-    margin-right: 20px;
-}
-.secnion1_container p {
-    margin-left:20px;
-    text-indent:10%;
-}
-
-#section1 img {
-    width: 40%;
-    height: auto;
-}
-
-/* перечень услуг */
-#glav {
-    line-height: 2;
-}
-
-#opi {
-    font-size: 15px;
-}
-
-#cena {
-    font-size: 30px;
-    line-height: 2;
-}
-.container {
-    text-align: center;
-    margin-top: 20px;
-    padding: 20px;
-    margin-right: auto;
-    margin-left: auto;
-    width: 80%; /* Устанавливаем ширину контейнера */
-}
-.grid {
-    display: flex;
-    justify-content: center; /* Центрирует карточки по горизонтали */
-    align-items: center; /* Центрирует карточки по вертикали */
-    flex-wrap: wrap;
-    gap: 20px; /* Добавляет расстояние между карточками */
-}
-
-.card-size {
-    margin: 5%;
+    background-position: center;
+    color: white;
 }
 
 .card {
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    padding: 20px;
-    margin: 10px;
-    width: 250px;
-    text-align: center;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s, box-shadow 0.2s;
 }
 
-.icon {
-    width: 225px;
-    height: 150px;
-    padding-right: 15px;
-}
-.icon img {
-    width: 100%;
-    height: 100%;
+.card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 }
 
-.choose-button {
-    background-color: rgb(237, 122, 0);
-    border: none;
-    color: white;
-    padding: 10px 20px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    margin-top: 10px;
-    cursor: pointer;
-}
-
-/* стили для формы заказа */
-.order-form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 20px;
-}
-
-.form-input, .form-select {
-    width: 50%; /* Ширина полей ввода уменьшена до 50% */
-    padding: 10px;
-    margin: 10px 0;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 16px;
-    box-sizing: border-box; /* Учитываем padding и border внутри ширины */
-}
-
-.submit-button {
-    background-color: rgb(237, 122, 0);
-    border-radius: 0.39em;
-    font-size: 18px;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    margin: 4px 2px;
-    cursor: pointer;
-    width: 50%; /* Ширина кнопки уменьшена до 50% */
-}
-
-/* стили для футера */
-.footer {
-    background-color: #999; /* светло-серый цвет */
-    padding: 20px 0;
-    text-align: center;
-    margin-top: 20px;
-}
-
-.footer-content {
-    width: 80%;
-    margin: 0 auto;
-}
-
-.footer a {
-    color: black;
-    text-decoration: none;
-}
-
-.footer a:hover {
+.nav-link:hover {
     text-decoration: underline;
+}
+
+footer a:hover {
+    text-decoration: underline;
+    color: #ffc107;
 }

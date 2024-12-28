@@ -3,98 +3,124 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Главная страница</title>
+    <title>Кадастр Саранск</title>
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-    <!-- Подключаем jQuery -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <!-- Подключаем плагин для маски -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/suggestions-jquery@22.6.0/dist/js/jquery.suggestions.min.js"></script>
     <script src="js/address-autocomplete.js"></script>
 </head>
 <body>
-<!-- Header-->
-<div class="header">
-    <div class="logo-container">
-        <img src="img/logo.png" alt="Логотип" class="logo">
+<!-- Header -->
+<header class="bg-light shadow-sm py-3">
+    <div class="container d-flex justify-content-between align-items-center">
+        <div class="logo d-flex align-items-center">
+            <img src="img/logo.png" alt="Логотип" class="me-2" style="height: 100px;">
+        </div>
+        <nav>
+            <ul class="nav">
+                <li class="nav-item"><a href="#section1" class="nav-link text-dark">О нас</a></li>
+                <li class="nav-item"><a href="#section2" class="nav-link text-dark">Услуги</a></li>
+                <li class="nav-item"><a href="#section3" class="nav-link text-dark">Заказ</a></li>
+            </ul>
+        </nav>
     </div>
-    <div class="jak">
-        @auth
-            <a href="/admin">Админ панель</a>
-        @endauth
-        <a href="#section1">о нас</a>
-        <a href="#section2">перечень услуг</a>
-        <a href="#section3">заказ</a>
-    </div>
-</div>
-<!-- Начало -->
-<div class="nach">
-    <div class="nach_text">
-        <h1>
-            <b>Кадастровые работы</b>
-        </h1>
-        <h2>
-            Всем, кто имеет дело с недвижимостью – от 1 небольшого объекта
-        </h2>
-        <button class="zakaz_1">
-            Получить консультацию
-        </button>
-    </div>
-</div>
-<!--о нас-->
-<div id="section1">
-    <div class="secnion1_container">
-        <p>Кадастровые работы — это выполнение услуг по подготовке информации и определения недвижимости в качестве индивидуально-определенной вещи. Это и геодезические измерения, и сбор необходимых документов и сведений, и составление новых документов.</p>
-        <p>Если кратко, кадастровые работы можно охарактеризовать как действия уполномоченных на то лиц по получению сведений об объектах недвижимости, необходимых для постановки на кадастровый учет. Любой объект недвижимости, будь то участок земли, дом, хозяйственное строение, гараж, баня и т.п., одним словом, все что фундаментально связано с землей, является объектом кадастровой работы.</p>
-    </div>
-    <img src="/img/o_nas.jpg" width="400" height="350">
-</div>
-<!--Перечень услуг-->
-<div class="container" id="section2">
-    <h1 id="glav">Услуги, которые мы предлагаем</h1>
+</header>
 
-    <p>Выберите услугу, которая подходит под решение ваших задач</p>
-    <div class="grid">
-        @foreach($services as $service)
-            <div class="card">
-                <div class="icon"><img src="{{$service->image}}" alt="Icon 1"></div>
-                <h2>{{$service->name}}</h2>
-                <p id="opi">{{$service->text}}</p>
-                <p id="cena"><b>от {{$service->price}} руб.</b></p>
-                <button class="choose-button">Выбрать</button>
-            </div>
-        @endforeach
+<!-- Hero Section -->
+<section class="hero bg-primary text-white text-center py-5">
+    <div class="container">
+        <h1 class="display-4">Кадастровые работы</h1>
+        <p class="fs-5">Всем, кто имеет дело с недвижимостью – от 1 небольшого объекта</p>
+        <button class="btn btn-light btn-lg mt-3">Получить консультацию</button>
     </div>
-</div>
-<!--ЗАКАЗ-->
-<h2 id="section3" class="zak"></h2>
-<form method="post" action="{{route('main_create')}}" class="order-form">
-    @csrf
-    <input type="text" name="name" placeholder="Имя" class="form-input">
-    <input type="text" name="surename" placeholder="Фамилия" class="form-input">
-    <input type="text" name="adress" id="address" placeholder="Адрес" class="form-input">
-    <input type="tel" name="number" id="phone" placeholder="+7 ___ ___ __ __" class="form-input">
-    <input type="email" name="email" placeholder="Электронная почта" class="form-input">
-    <select name="service_id" class="form-select">
-        @foreach($services as $service)
-            <option value="{{$service->id}}">{{$service->name}}</option>
-        @endforeach
-    </select>
-    <input type="text" name="note" placeholder="Примечание" class="form-input">
-    <button type="submit" class="submit-button">Отправить</button>
-</form>
+</section>
+
+<!-- О нас -->
+<section id="section1" class="py-5">
+    <div class="container d-md-flex align-items-center">
+        <div class="w-50">
+            <h2 class="mb-4">О нас</h2>
+            <p>Кадастровые работы — это выполнение услуг по подготовке информации и определения недвижимости в качестве индивидуально-определенной вещи. Это и геодезические измерения, и сбор необходимых документов и сведений, и составление новых документов.</p>
+            <p>Кратко, это действия уполномоченных лиц по получению сведений об объектах недвижимости, необходимых для постановки на кадастровый учет.</p>
+        </div>
+        <img src="img/o_nas.jpg" alt="О нас" class="w-50 rounded shadow-sm ms-md-4">
+    </div>
+</section>
+
+<!-- Услуги -->
+<section id="section2" class="py-5 bg-light">
+    <div class="container text-center">
+        <h2 class="mb-4">Услуги, которые мы предлагаем</h2>
+        <p class="mb-4">Выберите услугу, которая подходит под решение ваших задач</p>
+        <div class="row">
+            @foreach($services as $service)
+                <div class="col-md-4 mb-4">
+                    <div class="card shadow-sm">
+                        <img src="{{$service->image}}" alt="Услуга" class="card-img-top">
+                        <div class="card-body">
+                            <h5 class="card-title">{{$service->name}}</h5>
+                            <p class="card-text">{{$service->text}}</p>
+                            <p class="text-primary fw-bold">от {{$service->price}} руб.</p>
+                            <button class="btn btn-primary">Выбрать</button>
+                        </div>
+                    </div>
+                </div>
+            @endforeach
+        </div>
+    </div>
+</section>
+
+<!-- Заказ -->
+<section id="section3" class="py-5">
+    <div class="container">
+        <h2 class="text-center mb-4">Закажите консультацию</h2>
+        <form method="post" action="{{route('main_create')}}" class="mx-auto" style="max-width: 600px;">
+            @csrf
+            <div class="mb-3">
+                <input type="text" name="name" placeholder="Имя" class="form-control">
+            </div>
+            <div class="mb-3">
+                <input type="text" name="surename" placeholder="Фамилия" class="form-control">
+            </div>
+            <div class="mb-3">
+                <input type="text" name="adress" id="address" placeholder="Адрес" class="form-control">
+            </div>
+            <div class="mb-3">
+                <input type="tel" name="number" id="phone" placeholder="+7 ___ ___ __ __" class="form-control">
+            </div>
+            <div class="mb-3">
+                <input type="email" name="email" placeholder="Электронная почта" class="form-control">
+            </div>
+            <div class="mb-3">
+                <select name="service_id" class="form-select">
+                    @foreach($services as $service)
+                        <option value="{{$service->id}}">{{$service->name}}</option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="mb-3">
+                <input type="text" name="note" placeholder="Примечание" class="form-control">
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Отправить</button>
+        </form>
+    </div>
+</section>
 
 <!-- Footer -->
-<footer class="footer">
-    <div class="footer-content">
-        <p>Телефон для обратной связи: <a href="tel:+1234567890">+1234567890</a></p>
-        <p>Email: <a href="mailto:example@mail.ru">example@mail.ru</a></p>
+<footer class="bg-dark text-white py-4">
+    <div class="container text-center">
+        <p>Телефон для связи: <a href="tel:+1234567890" class="text-white">+1234567890</a></p>
+        <p>Email: <a href="mailto:example@mail.ru" class="text-white">example@mail.ru</a></p>
     </div>
 </footer>
 <script>
-    $(document).ready(function(){
-        $('#phone').mask('+7 (999) 999-99-99');
+    $(document).ready(function() {
+        $('#phone').mask('+7 (000) 000-00-00');
     });
 </script>
 </body>
